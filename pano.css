@@ -1,0 +1,33 @@
+#map {
+    height: 100vh;
+    width: 100vw;
+    /* Add more styles for the map container if needed */
+}
+
+#panorama {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    /* Add more styles for the panorama container if needed */
+}
+
+.custom-tooltip span {
+    color: yellow;  /* Change this to your desired color */
+}
+
+#toggleButton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#toggleButton:hover {
+    background-color: #2980b9;
+}
