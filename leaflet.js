@@ -14,9 +14,9 @@ var basemap = {
 
 // Create the map and set the initial layer
 var map = L.map('map', {
-    center: [20.59, 78.96],
+    center: [50.01254567,1.49893847],
     zoom: 5,
-    layers: [Usda]  // Initial layer
+    layers: [Esrimap]  // Initial layer
 });
 
 // Add basemap layers control
@@ -34,11 +34,31 @@ var ctrlMeasure = L.control.polylineMeasure({
 var imageBounds = [[20.49, 78.86], [20.69, 79.06]];
 var image = L.imageOverlay("static/DJI_stitch.jpg", imageBounds,{interactive: true}).addTo(map);
 
-// Switch to panorama on image click
-image.on('click', function () {
-    document.getElementById('map').style.display = 'none'; // Hide the map
-    panoramaLoad();
+
+let popupContent = '<h1>Paris</h1><p>This is a tower fixed in Paris</p><p><b>Lat:</b>50.01254567<br><b>Lon:</b>1.49893847<br></p><img src="./static/1.jpg" width=200px height=200px/>';
+var marker = L.marker([50.01254567,1.49893847], {
+    title: "place"
+}).addTo(map)
+    .bindPopup(popupContent)
+    .on('popupopen', function() {
+        var img = document.querySelector('.leaflet-popup-content img');
+        img.addEventListener('click', function () {
+            document.getElementById('map').style.display = 'none';
+            panoramaLoad();
+        });
+    });
+
+// Toggle between map and panorama on button click
+const toggleButton = document.getElementById('toggleButton');
+toggleButton.addEventListener('click', function () {
+    const panoramaContainer = document.getElementById('panorama');
+    panoramaContainer.style.display = 'none'; // Hide the panorama
+    panoramaContainer.innerHTML = ''; // Clear the panorama container content
+
+    const mapContainer = document.getElementById('map');
+    mapContainer.style.display = 'block'; // Show the map
 });
+
 
 function panoramaLoad() {
     var panoramaContainer = document.getElementById('panorama');
@@ -46,11 +66,11 @@ function panoramaLoad() {
 
     var panorama = pannellum.viewer('panorama', {
         type: "equirectangular",
-        panorama: "static/DJI_stitch.jpg",
+        panorama: "static/1.jpg",
         autoLoad: true,
         default_fov: 90,
         showControls: true,
-        autoRotate: -1,
+        autoRotate: -5,
         hotSpots: Array.from({length: 6}, (_, i) => ({
             pitch: 0,
             yaw: i * 60,
@@ -70,21 +90,3 @@ function panoramaLoad() {
         span.style.marginTop = -span.scrollHeight - 12 + 'px';
     }
 }
-
-
- // Toggle between map and panorama on button click
- const toggleButton = document.getElementById('toggleButton');
- toggleButton.addEventListener('click', function () {
-     const mapContainer = document.getElementById('map');
-     const panoramaContainer = document.getElementById('panorama');
-
-     if (mapContainer.style.display === 'none') {
-         // Show the map and hide the panorama
-         mapContainer.style.display = 'block';
-         panoramaContainer.style.display = 'none';
-     } else {
-         // Show the panorama and hide the map
-         mapContainer.style.display = 'none';
-         panoramaContainer.style.display = 'block';
-     }
- });
