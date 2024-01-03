@@ -1,7 +1,11 @@
+body{
+    margin:20px;
+}
 #map {
-    height: 100vh;
-    width: 100vw;
-    /* Add more styles for the map container if needed */
+    width: 100%;
+    height:100vh;/* Adjust the height based on your menu height */
+    margin-top: 60px; /* Adjust top margin as needed */
+    z-index: 0;
 }
 
 #panorama {
@@ -9,13 +13,16 @@
     width: 100%;
     height: 100vh;
     /* Add more styles for the panorama container if needed */
+    margin-top: 60px;
+    z-index: 0;
 }
 
 .custom-tooltip span {
-    color: yellow;  /* Change this to your desired color */
+    color: red;  /* Change this to your desired color */
 }
 
 #toggleButton {
+    margin-top: 10px;
     position: absolute;
     top: 10px;
     left: 10px;
@@ -26,6 +33,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    text-align: center;
 }
 
 #toggleButton:hover {
